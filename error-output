@@ -1,0 +1,70 @@
+nominatim@test-vps:~/build$ nominatim import --osm-file ~/nominatim-planet/russia-latest.osm.pbf 2>&1 | tee setup.log
+2021-10-24 16:43:38: Using project directory: /srv/nominatim/build
+2021-10-24 16:43:38: Creating database
+2021-10-24 16:43:38: Setting up database
+2021-10-24 16:43:42: Loading basic data
+2021-10-24 16:43:44: Installing database module
+2021-10-24 16:43:44: Importing OSM data file
+2021-10-24 16:43:44  osm2pgsql version 1.4.1
+2021-10-24 16:43:44  Database version: 12.8 (Ubuntu 12.8-0ubuntu0.20.04.1)
+2021-10-24 16:43:44  PostGIS version: 3.0
+2021-10-24 16:43:44  Node-cache: cache=1619MB, maxblocks=25904*65536, allocation method=11
+2021-10-24 16:43:44  Parsing gazetteer style file '/usr/local/etc/nominatim/import-extratags.style'.
+NOTICE:  table "place" does not exist, skipping
+Processing: Node(57730k 549.8k/s) Way(0k 0.00k/s) Relation(0 0.0/s)2021-10-24 16:45:29  ERROR: planet_osm_nodes - error on COPY: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+2021-10-24 16:45:29  ERROR: Data: 1625191742	645811047	586864868
+1625191743	645811228	586743915
+1625191744	645811376	586675528
+1625191745	645811671	586689961
+1625191746	645811671	586696834
+1625191747	645811932	586792014
+1625191748	645811932	587126044
+1625191749	645812079	588791726
+1625191750	645812669	586859026
+1625191751	645812703	586915397
+1625191752	645812851	586541504
+1625191753	645813112	587132230
+1625191754	645813293	587397197
+1625191755	645813736	588758059
+1625191756	645814144	587138416
+1625191757	645814178	587042205
+1625
+...
+944
+1630468529	485611918	443881810
+1630468531	485601721	443895886
+1630468532	485606676	443911312
+1630468533	485613829	443910534
+1630468534	485601504	443867824
+1630468535	485591600	443915195
+1630468536	485609677	443868470
+1630468537	485599590	443868097
+1630468538	485614692	443911174
+1630468545	485612825	443881825
+1630468547	485603697	443906727
+1630468549	485599465	443861573
+1630468551	485603372	443893025
+1630468552	485611733	443851304
+1630468553	485594194	443911772
+1630468554	485594309	443885254
+
+2021-10-24 16:45:29  ERROR: DB copy thread failed: COPYing data to Postgresql.
+Traceback (most recent call last):
+  File "/usr/local/bin/nominatim", line 11, in <module>
+    exit(cli.nominatim(module_dir='/usr/local/lib/nominatim/module',
+  File "/usr/local/lib/nominatim/lib-python/nominatim/cli.py", line 288, in nominatim
+    return parser.run(**kwargs)
+  File "/usr/local/lib/nominatim/lib-python/nominatim/cli.py", line 92, in run
+    return args.command.run(args)
+  File "/usr/local/lib/nominatim/lib-python/nominatim/clicmd/setup.py", line 77, in run
+    database_import.import_osm_data(Path(args.osm_file),
+  File "/usr/local/lib/nominatim/lib-python/nominatim/tools/database_import.py", line 165, in import_osm_data
+    run_osm2pgsql(options)
+  File "/usr/local/lib/nominatim/lib-python/nominatim/tools/exec_utils.py", line 131, in run_osm2pgsql
+    subprocess.run(cmd, cwd=options.get('cwd', '.'), env=env, check=True)
+  File "/usr/lib/python3.8/subprocess.py", line 516, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/local/lib/nominatim/osm2pgsql', '--hstore', '--latlon', '--slim', '--with-forward-dependencies', 'false', '--log-progress', 'true', '--number-processes', '1', '--cache', '1619', '--output', 'gazetteer', '--style', '/usr/local/etc/nominatim/import-extratags.style', '--create', '/srv/nominatim/nominatim-planet/russia-latest.osm.pbf']' returned non-zero exit status 2.
